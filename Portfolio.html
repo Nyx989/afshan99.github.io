@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afshan Shaikh | Cybersecurity Specialist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary: #0a0e17;
+            --secondary: #13182d;
+            --accent: #6cffc8;
+            --text: #e0e7ff;
+            --highlight: #ffffff;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent), #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--accent), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(108, 255, 200, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108, 255, 200, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .binary-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236cffc8' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(108, 255, 200, 0.7);
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* New animation styles */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .rotate {
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes dash {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .dash {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 5s linear forwards infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .blink {
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out forwards;
+        }
+        
+        /* Particle canvas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+        
+        /* Card hover effect */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(108, 255, 200, 0.2);
+        }
+        
+        /* Section reveal animation */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .section-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="binary-bg">
+    <!-- Animated Background Elements -->
+    <div id="particles-js"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-[#6cffc8] opacity-10 blur-3xl floating"></div>
+        <div class="absolute top-3/4 right-1/4 w-48 h-48 rounded-full bg-[#3b82f6] opacity-10 blur-3xl floating" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full bg-[#9333ea] opacity-10 blur-3xl floating" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#0a0e17] bg-opacity-80 backdrop-blur-md border-b border-[#1e293b]">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold gradient-text hover:glow transition-all duration-500">AFSHAN SHAIKH</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-[#e0e7ff] hover:text-[#6cffc8] transition-all duration-300 relative group">
+                    <span class="relative z-10 group-hover:glow">About</span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#6cffc8] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="nav-link text-[#e0e7ff] hover:text-[#6cffc8] transition-all duration-300 relative group">
+                    <span class="relative z-10 group-hover:glow">Experience</span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#6cffc8] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="nav-link text-[#e0e7ff] hover:text-[#6cffc8] transition-all duration-300 relative group">
+                    <span class="relative z-10 group-hover:glow">Projects</span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#6cffc8] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="nav-link text-[#e0e7ff] hover:text-[#6cffc8] transition-all duration-300 relative group">
+                    <span class="relative z-10 group-hover:glow">Skills</span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#6cffc8] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="nav-link text-[#e0e7ff] hover:text-[#6cffc8] transition-all duration-300 relative group">
+                    <span class="relative z-10 group-hover:glow">Contact</span>
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#6cffc8] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            <button class="md:hidden text-[#e0e7ff] hover:text-[#6cffc8]">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full border border-[#6cffc8] opacity-10 rotate"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] rounded-full border border-[#6cffc8] opacity-10 rotate" style="animation-direction: reverse;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full border border-[#6cffc8] opacity-10 rotate"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-24 relative z-10 content-wrapper">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <p class="text-[#6cffc8] font-mono mb-4 text-lg slide-in">Hello, I'm</p>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                        <span class="gradient-text glow">Afshan Shaikh</span>
+                    </h1>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8 text-[#e0e7ff]">
+                        Cybersecurity <span class="gradient-text glow">Specialist</span>
+                    </h2>
+                    <p class="text-lg md:text-xl text-[#94a3b8] mb-10 max-w-2xl">
+                        Final-year Computer Science student specializing in threat detection, incident response, 
+                        and system security with hands-on experience in ethical hacking and vulnerability assessment.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-8 py-3 bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] text-[#0a0e17] font-bold rounded-full hover:shadow-lg hover:shadow-[#6cffc8]/30 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="px-8 py-3 border-2 border-[#6cffc8] text-[#6cffc8] font-bold rounded-full hover:bg-[#6cffc8] hover:bg-opacity-10 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            View Projects
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 relative mt-12 lg:mt-0">
+                    <div class="relative w-full max-w-md mx-auto floating">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] rounded-3xl opacity-20 blur-2xl rotate"></div>
+                        <div class="relative bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-500">
+                            <div class="h-8 bg-[#1e293b] flex items-center px-4">
+                                <div class="w-3 h-3 rounded-full bg-[#ef4444] mr-2 blink" style="animation-delay: 0.2s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#f59e0b] mr-2 blink" style="animation-delay: 0.4s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#10b981] blink" style="animation-delay: 0.6s;"></div>
+                            </div>
+                            <div class="p-6">
+                                <div class="font-mono text-sm text-[#6cffc8]">
+                                    <p class="mb-2"><span class="text-[#3b82f6]">$</span> whois afshan_shaikh</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Cybersecurity Analyst</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Ethical Hacker</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Security Researcher</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Computer Science Student</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">$</span> skills --list</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Metasploit, Wireshark, Nessus</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Python, Networking, Web Security</p>
+                                    <p class="mb-2"><span class="text-[#3b82f6]">></span> Incident Detection & Response</p>
+                                    <p class="text-[#3b82f6]">$</span> <span class="inline-block w-2 h-4 bg-[#6cffc8] align-middle blink"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 grid-pattern"></div>
+        <div class="max-w-7xl mx-auto relative content-wrapper">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/3 relative">
+                    <div class="cyber-border rounded-2xl overflow-hidden hover:glow transition-all duration-500">
+                        <div class="relative bg-[#13182d] p-1 rounded-2xl">
+                            <!-- Placeholder for your photo -->
+                            <div class="w-full h-auto aspect-square bg-gradient-to-br from-[#0a0e17] to-[#13182d] rounded-xl overflow-hidden flex items-center justify-center">
+                                <div class="text-center p-8 floating" style="animation-duration: 8s;">
+                                    <i class="fas fa-user-secret text-8xl text-[#6cffc8] mb-4"></i>
+                                    <p class="text-[#6cffc8] font-mono">Cybersecurity Specialist</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="bg-[#13182d] p-4 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <p class="text-[#6cffc8] font-mono text-sm mb-1">Location</p>
+                            <p class="text-[#e0e7ff]">Thane, India</p>
+                        </div>
+                        <div class="bg-[#13182d] p-4 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <p class="text-[#6cffc8] font-mono text-sm mb-1">Email</p>
+                            <p class="text-[#e0e7ff]">afshanshaikh995@gmail.com</p>
+                        </div>
+                        <div class="bg-[#13182d] p-4 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <p class="text-[#6cffc8] font-mono text-sm mb-1">Phone</p>
+                            <p class="text-[#e0e7ff]">+91 9321758533</p>
+                        </div>
+                        <div class="bg-[#13182d] p-4 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <p class="text-[#6cffc8] font-mono text-sm mb-1">LinkedIn</p>
+                            <a href="https://linkedin.com/in/afshan-shaikh-161a72299" target="_blank" class="text-[#e0e7ff] hover:text-[#6cffc8]">afshan-shaikh</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-2/3">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                        <span class="gradient-text glow">About Me</span>
+                    </h2>
+                    <div class="prose prose-invert max-w-none">
+                        <p class="text-lg text-[#94a3b8] mb-6">
+                            I'm a final-year Computer Science student with a passion for cybersecurity. My journey began with 
+                            hands-on training in threat detection and system security, and I've been hooked on breaking and 
+                            fixing systems ever since.
+                        </p>
+                        <p class="text-lg text-[#94a3b8] mb-6">
+                            Through various training programs, I've had the opportunity to work with security tools and 
+                            technologies, simulating real-world attacks, uncovering vulnerabilities, and improving system 
+                            defenses. I thrive on the challenge of staying one step ahead of potential threats.
+                        </p>
+                        <p class="text-lg text-[#94a3b8] mb-8">
+                            When I'm not securing systems, I enjoy exploring new technologies, contributing to research papers, 
+                            and developing applications that solve real-world problems with a security-first approach.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-4 flex items-center">
+                                <i class="fas fa-graduation-cap text-[#6cffc8] mr-3"></i>
+                                Education
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2022 - 2025</p>
+                                    <p class="text-[#e0e7ff] font-medium">B.Sc Computer Science</p>
+                                    <p class="text-[#94a3b8] text-sm">Satish Pradhan Dnyanasadhana College</p>
+                                </div>
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2020 - 2021</p>
+                                    <p class="text-[#e0e7ff] font-medium">Higher Secondary Education</p>
+                                    <p class="text-[#94a3b8] text-sm">Satish Pradhan Dnyanasadhana College</p>
+                                </div>
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2010 - 2020</p>
+                                    <p class="text-[#e0e7ff] font-medium">Secondary Education</p>
+                                    <p class="text-[#94a3b8] text-sm">Anjuman Khairul Islam Girls High School</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-4 flex items-center">
+                                <i class="fas fa-trophy text-[#6cffc8] mr-3"></i>
+                                Achievements
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2024</p>
+                                    <p class="text-[#e0e7ff] font-medium">3rd Prize - Inter-Collegiate IT FEST</p>
+                                    <p class="text-[#94a3b8] text-sm">Project Exhibition</p>
+                                </div>
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2023</p>
+                                    <p class="text-[#e0e7ff] font-medium">Published Research Paper</p>
+                                    <p class="text-[#94a3b8] text-sm">International Journal</p>
+                                </div>
+                                <div>
+                                    <p class="text-[#6cffc8] font-mono text-sm">2023</p>
+                                    <p class="text-[#e0e7ff] font-medium">Student of the Year</p>
+                                    <p class="text-[#94a3b8] text-sm">Academic Excellence</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 bg-[#13182d] relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM2Y2ZmYzgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0di00aC0ydjRoLTR2Mmg0djRoMnYtNGg0di0yaC00em0wLTMwVjBoLTJ2NGgtNHYyaDR2NGgyVjZoNHYtMmgtNHpNNiAzNHYtNEg0djRIMHYyaDR2NGgydi00aDR2LTJINnpNNiA0VjBINHY0SDB2Mmg0djRINlY2aDRWNkg2eiIvPjwvZz48L2c+PC9zdmc+')]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto relative content-wrapper">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center">
+                <span class="gradient-text glow">Training & Experience</span>
+            </h2>
+            
+            <div class="relative">
+                <!-- Animated timeline line -->
+                <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gradient-to-b from-[#6cffc8] to-[#3b82f6]">
+                    <div class="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#13182d] to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#13182d] to-transparent"></div>
+                </div>
+                
+                <div class="space-y-12">
+                    <!-- Item 1 -->
+                    <div class="relative pl-12 md:pl-0 md:flex justify-between gap-8 timeline-item">
+                        <div class="md:w-5/12 md:pr-8 md:text-right">
+                            <p class="text-[#6cffc8] font-mono mb-2">Telenetworks Technologies Pvt Ltd</p>
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-3">Cybersecurity Training</h3>
+                            <p class="text-[#94a3b8]">Simulated real-world attacks, uncovered vulnerabilities, and improved system defenses</p>
+                        </div>
+                        
+                        <div class="hidden md:block md:w-2/12 flex items-center justify-center">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 mt-4 md:mt-0">
+                            <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                <ul class="list-disc pl-5 space-y-2 text-[#94a3b8]">
+                                    <li>Simulated over 10 real-world attacks using Metasploit</li>
+                                    <li>Uncovered 3 high-risk vulnerabilities in legacy systems</li>
+                                    <li>Reduced system crash incidents by 40% through patching</li>
+                                    <li>Conducted penetration testing on web applications</li>
+                                    <li>Implemented security patches for identified vulnerabilities</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute left-0 top-0 md:hidden w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="relative pl-12 md:pl-0 md:flex justify-between gap-8 timeline-item">
+                        <div class="md:w-5/12 md:order-3">
+                            <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                <ul class="list-disc pl-5 space-y-2 text-[#94a3b8]">
+                                    <li>Built and deployed 2+ cloud-based pipelines</li>
+                                    <li>Used AWS, Docker, Jenkins, and CI/CD tools</li>
+                                    <li>Improved deployment speed by 15%</li>
+                                    <li>Configured AWS security groups and IAM policies</li>
+                                    <li>Implemented automated security scanning in CI/CD</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden md:block md:w-2/12 md:order-2 flex items-center justify-center">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 md:order-1 md:pl-8 mt-4 md:mt-0">
+                            <p class="text-[#6cffc8] font-mono mb-2">ExcelR</p>
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-3">Cloud Computing Training</h3>
+                            <p class="text-[#94a3b8]">Developed cloud infrastructure and deployment pipelines</p>
+                        </div>
+                        
+                        <div class="absolute left-0 top-0 md:hidden w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="relative pl-12 md:pl-0 md:flex justify-between gap-8 timeline-item">
+                        <div class="md:w-5/12 md:pr-8 md:text-right">
+                            <p class="text-[#6cffc8] font-mono mb-2">NIIT Foundation</p>
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-3">CyberOps v1.0 Training</h3>
+                            <p class="text-[#94a3b8]">Hands-on training in Windows/Linux security and threat detection</p>
+                        </div>
+                        
+                        <div class="hidden md:block md:w-2/12 flex items-center justify-center">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 mt-4 md:mt-0">
+                            <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                <ul class="list-disc pl-5 space-y-2 text-[#94a3b8]">
+                                    <li>Detected 15+ simulated threats using analysis tools</li>
+                                    <li>Applied cryptographic methods for security</li>
+                                    <li>Improved lab response accuracy by 40%</li>
+                                    <li>Analyzed network traffic for anomalies</li>
+                                    <li>Configured firewall rules and IDS/IPS systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute left-0 top-0 md:hidden w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="relative pl-12 md:pl-0 md:flex justify-between gap-8 timeline-item">
+                        <div class="md:w-5/12 md:order-3">
+                            <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                <ul class="list-disc pl-5 space-y-2 text-[#94a3b8]">
+                                    <li>Analyzed large datasets using Python, SQL</li>
+                                    <li>Applied machine learning models for insights</li>
+                                    <li>Improved decision-making accuracy by 45%</li>
+                                    <li>Developed anomaly detection algorithms</li>
+                                    <li>Created security log analysis dashboards</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden md:block md:w-2/12 md:order-2 flex items-center justify-center">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 md:order-1 md:pl-8 mt-4 md:mt-0">
+                            <p class="text-[#6cffc8] font-mono mb-2">Q-Spiders Training Institute</p>
+                            <h3 class="text-xl font-bold text-[#e0e7ff] mb-3">Data Science Training (Ongoing)</h3>
+                            <p class="text-[#94a3b8]">Applying data analysis techniques to security problems</p>
+                        </div>
+                        
+                        <div class="absolute left-0 top-0 md:hidden w-6 h-6 rounded-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] border-4 border-[#13182d] z-10 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-[#13182d]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Projects Section -->
+<section id="projects" class="py-24 px-6 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto relative content-wrapper">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6 text-center">
+            <span class="gradient-text glow">Featured Projects</span>
+        </h2>
+        <p class="text-xl text-[#94a3b8] mb-16 max-w-3xl mx-auto text-center">
+            Here are some of my cybersecurity and technology projects. Currently available on GitHub with deployment coming soon.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 - Adaptive Cyber Defense -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 5s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">Adaptive Cyber Defense System</h3>
+                        <a href="https://github.com/Nyx989/cyber_defense" target="_blank" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Multi-layered security system with behavioral analysis and threat detection.
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">Code available on GitHub • Deployment coming soon</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Python</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Metasploit</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Wireshark</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 - Object Detection Pose Game -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-gamepad text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 6s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">Object Detection Pose Game</h3>
+                        <a href="https://github.com/Nyx989/Zenith_Core" target="_blank" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Interactive game using body movements with real-time object detection.
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">Code available on GitHub • Deployment coming soon</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Python</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">OpenCV</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">YOLO</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Project 4 - Color Detection -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-palette text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 5s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">Color Detection with TTS</h3>
+                        <a href="https://github.com/Nyx989/Color_Detection" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Color identification with text-to-speech in multiple languages.
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">Code available on request • Deployment coming soon</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Python</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">OpenCV</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 3 - EyeQ App -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-eye text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 7s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">EyeQ for Visually Impaired</h3>
+                        <a href="#" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Android application to assist visually impaired users (Private repo).
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">Code available on request • Deployment coming soon</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Android</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">TensorFlow</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Project 5 - Digital Agreement Wizard -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-file-signature text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 6s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">Digital Agreement Wizard</h3>
+                        <a href="#" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Multi-step agreement wizard with dynamic clause selection (Private repo).
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">Code available on request • Deployment coming soon</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">JavaScript</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">PDF</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6 - Research Papers -->
+            <div class="bg-[#13182d] rounded-2xl overflow-hidden border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 hover:shadow-lg hover:shadow-[#6cffc8]/20 card-hover">
+                <div class="relative overflow-hidden h-48">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#6cffc8] to-[#3b82f6] opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-book text-6xl text-[#6cffc8] opacity-50 group-hover:opacity-70 transition-all duration-500 floating" style="animation-duration: 7s;"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[#e0e7ff]">Research Publications</h3>
+                        <a href="https://iaraedu.com/about-journal/ijair-volume-9-issue-4-iii-october-december-2022.php" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <p class="text-[#94a3b8] mb-4">
+                        Published research papers on education, social issues, and technology.
+                        <span class="text-[#6cffc8] font-mono text-xs block mt-2">The first PDF.</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Research</span>
+                        <span class="px-3 py-1 bg-[#0a0e17] text-[#6cffc8] text-xs font-mono rounded-full">Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Extracurricular Section -->
+            <div class="mt-24">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">
+                    <span class="gradient-text glow">Extracurricular Activities</span>
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover">
+                        <div class="text-[#6cffc8] text-3xl mb-4">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">Aavishkar Competition</h4>
+                        <p class="text-[#94a3b8]">Participated in Inter-University Research Project Competition with EyeQ app for visually impaired.</p>
+                    </div>
+                    
+                    <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover">
+                        <div class="text-[#6cffc8] text-3xl mb-4">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">Certifications</h4>
+                        <p class="text-[#94a3b8]">Certified in Cybersecurity, Android App Development, and SQL Basics from Great Learning.</p>
+                    </div>
+                    
+                    <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover">
+                        <div class="text-[#6cffc8] text-3xl mb-4">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">Student of the Year</h4>
+                        <p class="text-[#94a3b8]">Honored for outstanding academic excellence and active contribution to college-wide events.</p>
+                    </div>
+                    <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover scroll-reveal" style="transition-delay: 0.4s;">
+                    <div class="text-[#6cffc8] text-3xl mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">AI Workshop</h4>
+                    <p class="text-[#94a3b8]">Attended AI workshop conducted by IIT Bombay in collaboration with CRAW, gaining hands-on experience with machine learning models.</p>
+                </div>
+                <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover scroll-reveal" style="transition-delay: 0.5s;">
+                    <div class="text-[#6cffc8] text-3xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">Third Prize Winner </h4>
+                    <p class="text-[#94a3b8]">Recognized for presenting an innovative tech project among multiple colleges.</p>
+                </div>
+                <div class="bg-[#13182d] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1 card-hover scroll-reveal" style="transition-delay: 0.6s;">
+    <div class="text-[#6cffc8] text-3xl mb-4">
+        <i class="fas fa-graduation-cap"></i>
+    </div>
+    <h4 class="text-lg font-bold text-[#e0e7ff] mb-3">Academic Excellence</h4>
+    <p class="text-[#94a3b8]">Achieved 3rd rank in first year and secured 1st rank in second year of undergraduate studies.</p>
+</div>
+
+            </div>
+        </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <a href="#contact" class="inline-flex items-center px-6 py-3 border border-[#6cffc8] text-[#6cffc8] rounded-full hover:bg-[#6cffc8] hover:bg-opacity-10 transition-all duration-300 transform hover:-translate-y-1">
+                    <span>Let's Collaborate</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 bg-[#13182d] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative content-wrapper">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-center">
+                <span class="gradient-text glow">Technical Skills</span>
+            </h2>
+            <p class="text-xl text-[#94a3b8] mb-16 max-w-3xl mx-auto text-center">
+                The tools and technologies I use to secure systems and build solutions.
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skill 1 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 4s;">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Python</h3>
+                    <p class="text-[#94a3b8]">Advanced scripting for security tools and automation</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill 2 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 5s;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Cybersecurity</h3>
+                    <p class="text-[#94a3b8]">Threat detection, vulnerability assessment, and defense</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill 3 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 6s;">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Networking</h3>
+                    <p class="text-[#94a3b8]">Network protocols, security, and traffic analysis</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill 4 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 7s;">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Web Security</h3>
+                    <p class="text-[#94a3b8]">OWASP Top 10, secure coding practices</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Skill 5 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 4s;">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Penetration Testing</h3>
+                    <p class="text-[#94a3b8]">Ethical hacking and vulnerability assessment</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Skill 6 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 5s;">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Cloud Security</h3>
+                    <p class="text-[#94a3b8]">AWS security, Docker, and CI/CD pipelines</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Skill 7 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 6s;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Database Security</h3>
+                    <p class="text-[#94a3b8]">SQL, NoSQL security, and data protection</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Skill 8 -->
+                <div class="bg-[#0a0e17] p-6 rounded-xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 group transform hover:-translate-y-2 card-hover">
+                    <div class="text-[#6cffc8] text-4xl mb-4 floating" style="animation-duration: 7s;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e0e7ff] mb-2">Secure Coding</h3>
+                    <p class="text-[#94a3b8]">Secure development practices and code review</p>
+                    <div class="mt-4">
+                        <div class="w-full bg-[#13182d] rounded-full h-2">
+                            <div class="bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-[#e0e7ff] mt-20 mb-8 text-center">
+                <span class="gradient-text glow">Security Tools & Technologies</span>
+            </h3>
+            
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-network-wired text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Wireshark</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-search text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Nmap</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-shield-alt text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Metasploit</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-bug text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Burp Suite</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-shield-virus text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Nessus</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-database text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Splunk</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-terminal text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Kali Linux</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-key text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Cryptography</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-fingerprint text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">OWASP ZAP</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-laptop-code text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Security Onion</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-file-alt text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">FTK Imager</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-brain text-3xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff]">Autopsy</span>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-[#e0e7ff] mt-20 mb-8 text-center">
+                <span class="gradient-text glow">Personal Attributes</span>
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-search text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Investigative Mindset</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-shield-alt text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Resilient</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-sitemap text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Logical Thinking</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-user-tie text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Professionalism</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-search-plus text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Detail-focused</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-handshake text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Ethical</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-project-diagram text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Project Management</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-lightbulb text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Research & Analysis</span>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-[#e0e7ff] mt-20 mb-8 text-center">
+                <span class="gradient-text glow">Languages & Hobbies</span>
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-language text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">English</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-language text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Hindi</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-language text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Marathi</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-language text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Urdu</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-gamepad text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">E-Gaming</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-book text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Reading</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-paint-brush text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Digital Design</span>
+                </div>
+                <div class="bg-[#0a0e17] p-4 rounded-lg border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-300 flex flex-col items-center transform hover:-translate-y-1">
+                    <i class="fas fa-headphones text-2xl text-[#6cffc8] mb-2"></i>
+                    <span class="text-sm text-[#e0e7ff] text-center">Music/Podcasts</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative content-wrapper">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-center">
+                <span class="gradient-text glow">Get In Touch</span>
+            </h2>
+            <p class="text-xl text-[#94a3b8] mb-16 max-w-3xl mx-auto text-center">
+                I'm currently looking for new opportunities in cybersecurity. Whether you have a question or just want to say hi, I'll do my best to get back to you!
+            </p>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-[#13182d] p-8 rounded-2xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-500 transform hover:-translate-y-1 card-hover">
+                        <h3 class="text-2xl font-bold text-[#e0e7ff] mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-[#6cffc8] text-xl mt-1 mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-[#e0e7ff] mb-1">Email</h4>
+                                    <a href="mailto:afshanshaikh995@gmail.com" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                                        afshanshaikh995@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-[#6cffc8] text-xl mt-1 mr-4">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-[#e0e7ff] mb-1">Phone</h4>
+                                    <a href="tel:+919321758533" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300">
+                                        +91 9321758533
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-[#6cffc8] text-xl mt-1 mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-[#e0e7ff] mb-1">Location</h4>
+                                    <p class="text-[#94a3b8]">Thane West, Maharashtra, India - 400604</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <h4 class="text-lg font-bold text-[#e0e7ff] mb-4">Connect with me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://linkedin.com/in/afshan-shaikh-161a72299" target="_blank" class="w-12 h-12 rounded-full bg-[#0a0e17] border border-[#1e293b] flex items-center justify-center text-[#e0e7ff] hover:text-[#6cffc8] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="https://github.com/Nyx989" class="w-12 h-12 rounded-full bg-[#0a0e17] border border-[#1e293b] flex items-center justify-center text-[#e0e7ff] hover:text-[#6cffc8] hover:border-[#6cffc8] transition-all duration-300 transform hover:-translate-y-1">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <form id="contactForm" class="bg-[#13182d] p-8 rounded-2xl border border-[#1e293b] hover:border-[#6cffc8] transition-all duration-500 transform hover:-translate-y-1 card-hover">
+    <div class="mb-6">
+        <label for="name" class="block text-[#e0e7ff] mb-2">Name</label>
+        <input type="text" id="name" name="name" required class="w-full bg-[#0a0e17] border border-[#1e293b] rounded-lg px-4 py-3 text-[#e0e7ff] focus:outline-none focus:border-[#6cffc8] transition-all duration-300">
+    </div>
+    
+    <div class="mb-6">
+        <label for="email" class="block text-[#e0e7ff] mb-2">Email</label>
+        <input type="email" id="email" name="email" required class="w-full bg-[#0a0e17] border border-[#1e293b] rounded-lg px-4 py-3 text-[#e0e7ff] focus:outline-none focus:border-[#6cffc8] transition-all duration-300">
+    </div>
+    
+    <div class="mb-6">
+        <label for="subject" class="block text-[#e0e7ff] mb-2">Subject</label>
+        <input type="text" id="subject" name="subject" required class="w-full bg-[#0a0e17] border border-[#1e293b] rounded-lg px-4 py-3 text-[#e0e7ff] focus:outline-none focus:border-[#6cffc8] transition-all duration-300">
+    </div>
+    
+    <div class="mb-8">
+        <label for="message" class="block text-[#e0e7ff] mb-2">Message</label>
+        <textarea id="message" name="message" rows="5" required class="w-full bg-[#0a0e17] border border-[#1e293b] rounded-lg px-4 py-3 text-[#e0e7ff] focus:outline-none focus:border-[#6cffc8] transition-all duration-300"></textarea>
+    </div>
+    
+    <div id="formMessage" class="mb-4 hidden"></div>
+    
+    <button type="submit" class="w-full bg-gradient-to-r from-[#6cffc8] to-[#3b82f6] text-[#0a0e17] font-bold py-3 px-6 rounded-lg hover:shadow-lg hover:shadow-[#6cffc8]/30 transition-all duration-300 transform hover:scale-105">
+        Send Message
+    </button>
+</form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-[#0a0e17] border-t border-[#1e293b]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold gradient-text hover:glow transition-all duration-500">AFSHAN SHAIKH</a>
+                    <p class="text-[#94a3b8] mt-2">Cybersecurity Specialist & Computer Science Graduate</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://linkedin.com/in/afshan-shaikh-161a72299" target="_blank" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300 transform hover:-translate-y-1">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/Nyx989" target="_blank" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300 transform hover:-translate-y-1">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-[#94a3b8] hover:text-[#6cffc8] transition-colors duration-300 transform hover:-translate-y-1">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-[#1e293b] text-center">
+                <p class="text-[#94a3b8] text-sm">
+                    &copy; 2025 Afshan Shaikh. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#6cffc8"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#6cffc8",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": true,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Initialize GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate elements on scroll
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power2.out"
+            });
+        });
+        
+        // Animate hero elements
+        gsap.from('nav', {
+            opacity: 0,
+            y: -20,
+            duration: 0.8,
+            delay: 0.2
+        });
+        
+        gsap.from('.hero-content > *', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            stagger: 0.15,
+            delay: 0.5
+        });
+        
+        // Animate project cards with stagger
+        gsap.utils.toArray('.card-hover').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.6,
+                delay: i * 0.1,
+                ease: "back.out(1.7)"
+            });
+        });
+        
+        // Add continuous floating animation to elements with .floating class
+        gsap.utils.toArray('.floating').forEach(el => {
+            const duration = parseFloat(el.style.animationDuration) || 6;
+            gsap.to(el, {
+                y: -20,
+                duration: duration/2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        });
+        
+        // Add blinking animation to elements with .blink class
+        gsap.utils.toArray('.blink').forEach(el => {
+            const delay = parseFloat(el.style.animationDelay) || 0;
+            gsap.to(el, {
+                opacity: 0.3,
+                duration: 0.75,
+                repeat: -1,
+                yoyo: true,
+                delay: delay,
+                ease: "sine.inOut"
+            });
+        });
+        
+        // Add rotating animation to elements with .rotate class
+        gsap.utils.toArray('.rotate').forEach(el => {
+            gsap.to(el, {
+                rotation: 360,
+                duration: 20,
+                repeat: -1,
+                ease: "none"
+            });
+        });
+        
+        // Section reveal animation
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            observer.observe(section);
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.md\\:hidden');
+        const navLinks = document.querySelector('.hidden.md\\:flex');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-[#0a0e17]');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('space-y-4');
+            navLinks.classList.toggle('space-x-8');
+        });
+        // Contact form handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const formMessage = document.getElementById('formMessage');
+    
+    // Disable submit button during submission
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Sending...';
+    formMessage.classList.add('hidden');
+    
+    // You have two options here:
+    
+    // Option 1: Use Formspree (easiest, no server required)
+    // Replace YOUR_FORMSPREE_ID with your actual Formspree form ID
+    fetch('https://formspree.io/f/mqalkjly', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            formMessage.textContent = 'Message sent successfully!';
+            formMessage.classList.remove('hidden', 'text-red-500');
+            formMessage.classList.add('text-green-500');
+            form.reset();
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .catch(error => {
+        formMessage.textContent = 'There was a problem sending your message. Please try again later.';
+        formMessage.classList.remove('hidden', 'text-green-500');
+        formMessage.classList.add('text-red-500');
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Send Message';
+    });
+    
+    /* 
+    // Option 2: Use your own server endpoint
+    // You would need to create a server-side script (PHP, Node.js, etc.)
+    fetch('your-server-endpoint.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            formMessage.textContent = 'Message sent successfully!';
+            formMessage.classList.remove('hidden', 'text-red-500');
+            formMessage.classList.add('text-green-500');
+            form.reset();
+        } else {
+            throw new Error(data.message || 'Error sending message');
+        }
+    })
+    .catch(error => {
+        formMessage.textContent = error.message;
+        formMessage.classList.remove('hidden', 'text-green-500');
+        formMessage.classList.add('text-red-500');
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Send Message';
+    });
+    */
+});
+    </script>
+</body>
+</html>
